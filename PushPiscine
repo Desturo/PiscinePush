@@ -1,0 +1,17 @@
+#!bin/bash
+
+timestamp=$(date +"%Y-%m-%dT%H:%M:%S %Z")
+exercise_path=/absolute/path/to/exercises
+repo_path=/absolute/path/to/repo
+
+cp -R "${exercise_path}"/* "${repo_path}"
+
+find "${repo_path}"/* -type d -name '.git' -exec rm -rf {} +
+find "${repo_path}"/* -type f -name '.gitignore' -exec rm -rf {} +
+
+cd "${repo_path}"
+
+git add .
+git commit -m "Pushed at $timestamp by $USER"
+git push
+
